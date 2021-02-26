@@ -27,4 +27,4 @@ This app is deployed at:
 ## 3D Model Credits
 
 Models downloaded from [Sketchfab](https://sketchfab.com/).
-- Wooden House by [aksyonov](https://sketchfab.com/aksyonov)
+- Wooden House & Barrel by [aksyonov](https://sketchfab.com/aksyonov).

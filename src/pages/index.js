@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
 import styles from '../styles/home.module.scss'
-import { AnimationMixer, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from 'three'
+import { AmbientLight, AnimationMixer, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from 'three'
 import { GLTFLoader } from '../utils/GLTFLoader'
 import { OrbitControls } from '../utils/OrbitControls'
 
@@ -15,7 +15,8 @@ class Home extends Component {
 
   componentDidMount() {
     this.sceneSetup()
-    this.loadWindmill()
+    this.loadHouse()
+    this.loadBarrel()
     this.animate() // this is the 'render loop' for Three.js
     window.addEventListener('resize', this.handleWindowResize)
   }
@@ -58,17 +59,14 @@ class Home extends Component {
     this.mount.appendChild(this.renderer.domElement)
 
     // Lights
+    const ambientLight = new AmbientLight(0xffffff)
+    this.scene.add(ambientLight)
+
     const lightOne = new DirectionalLight(0xffffff, 1)
-    lightOne.position.set(0, 900, 0)
-    lightOne.target.position.set(0, -500, 0)
+    lightOne.position.set(0, 1, 0)
+    lightOne.target.position.set(0, 0, 0)
     this.scene.add(lightOne)
     this.scene.add(lightOne.target)
-
-    const lightTwo = new DirectionalLight(0xffffff, 1)
-    lightTwo.position.set(200, 800, 0)
-    lightTwo.target.position.set(-200, -400, 0)
-    this.scene.add(lightTwo)
-    this.scene.add(lightTwo.target)
 
     // Click Event
     // this.raycaster = new THREE.Raycaster()
@@ -93,14 +91,13 @@ class Home extends Component {
     return lines
   }
 
-  loadWindmill = () => {
+  loadHouse = () => {
     const loader = new GLTFLoader()
     const url = '/models/wooden_house/scene.gltf'
     loader.load(url, (gltf) => {
-      this.model = gltf.scene
-      this.scene.add(this.model)
-      // this.model.position.y -= 375
-      // this.model.rotation.y += 0.7
+      this.house = gltf.scene
+      this.scene.add(this.house)
+      this.house.rotation.y += 3.14 // pie = 0.5 circle
 
       // if built-in animations
       // this.millMixer = new AnimationMixer(gltf.scene)
@@ -110,6 +107,17 @@ class Home extends Component {
       // })
     })
   }
+
+  loadBarrel = () => {
+    // try adding a empty object, attaching the barrel and scaling the empty object
+    const loader = new GLTFLoader()
+    const url = '/models/old_barrel/scene.gltf'
+    loader.load(url, (gltf) => {
+      this.barrel = gltf.scene
+      this.scene.add(this.barrel)
+      this.barrel.position.x -= 5
+  })
+}
 
   animate = () => {
     if (this.resizeRendererToDisplaySize(this.renderer)) {
