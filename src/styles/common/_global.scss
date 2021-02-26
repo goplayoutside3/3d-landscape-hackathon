@@ -1,0 +1,20 @@
+@import 'variables.scss';
+@import '../common/_mixins.scss';
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	line-height: 1;
+}
+
+
+
+
