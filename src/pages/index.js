@@ -4,16 +4,14 @@ import styles from '../styles/home.module.scss'
 import {
   AmbientLight,
   AnimationMixer,
-  BoxBufferGeometry,
   DirectionalLight,
   DoubleSide,
   Mesh,
-  MeshPhongMaterial,
+  MeshBasicMaterial,
   PerspectiveCamera,
   PlaneBufferGeometry,
   Scene,
   TextureLoader,
-  Vector3,
   WebGLRenderer,
 } from 'three'
 import { GLTFLoader } from '../utils/GLTFLoader'
@@ -84,16 +82,14 @@ class Home extends Component {
 
     // Create a Plane for the ground
     const geometry = new PlaneBufferGeometry(15, 10, 1)
-    const material = new MeshPhongMaterial({
-      color: 0x4c5b43,
+    const material = new MeshBasicMaterial({
+      color: 0x131F0D,
       side: DoubleSide,
-      flatShading: true,
     })
     // add texture
     material.needsUpdate = true
     this.plane = new Mesh(geometry, material)
     this.plane.rotation.x -= Math.PI / 2
-    this.plane.position.y -= 0.5
     this.scene.add(this.plane)
 
     // Click Event
@@ -152,7 +148,9 @@ class Home extends Component {
     loader.load(url, gltf => {
       this.house = gltf.scene
       this.scene.add(this.house)
-      // this.house.rotation.y += Math.PI
+      this.house.rotation.y += Math.PI
+      this.house.position.y -= 0.1
+      this.house.position.z -= 2
     })
   }
 
