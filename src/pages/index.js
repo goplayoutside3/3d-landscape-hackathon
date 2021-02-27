@@ -31,7 +31,6 @@ class Home extends Component {
     this.sceneSetup()
     this.loadGrass()
     // this.loadHouse()
-    // this.loadBarrel()
     this.animate() // this is the 'render loop' for Three.js
     window.addEventListener('resize', this.handleWindowResize)
   }
@@ -130,7 +129,18 @@ class Home extends Component {
     loader.load('/models/grass_chunk/grass_chunk.gltf', gltf => {
       const grassChunk = gltf.scene 
       this.scene.add(grassChunk)
-      grassChunk.position.x += 3
+      grassChunk.position.x += 4
+    })
+    loader.load('/models/small_grass_chunk/small_grass_chunk.gltf', gltf => {
+      const grassChunk = gltf.scene 
+      this.scene.add(grassChunk)
+      grassChunk.position.x -= 4
+    })
+    loader.load('/models/smallest_grass_chunk/smallest_grass_chunk.gltf', gltf => {
+      const grassChunk = gltf.scene 
+      this.scene.add(grassChunk)
+      grassChunk.position.x -= 4
+      grassChunk.position.z -= 2
     })
   }
 
@@ -148,25 +158,6 @@ class Home extends Component {
       // this.clips.forEach((clip) => {
       //   this.millMixer.clipAction(clip).play()
       // })
-    })
-  }
-
-  loadBarrel = () => {
-    const geometry = new BoxBufferGeometry(0.1, 0.1, 0.1)
-    const material = new MeshPhongMaterial({
-      opacity: 0,
-      transparent: true,
-    });
-    this.cube = new Mesh(geometry, material)
-    this.cube.scale.set(0.5, 0.5, 0.5)
-    this.scene.add(this.cube)
-
-    const loader = new GLTFLoader()
-    const url = '/models/old_barrel/scene.gltf'
-    loader.load(url, gltf => {
-      this.barrel = gltf.scene
-      this.cube.add(this.barrel)
-      this.cube.position.x -= 5
     })
   }
 
