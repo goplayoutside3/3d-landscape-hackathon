@@ -58,7 +58,11 @@ class Home extends Component {
     this.camera.position.z = 5 // back up away from scene
     this.camera.position.y = 1 // above the scene
     this.controls = new OrbitControls(this.camera, this.mount)
-    this.controls.enableZoom = false
+    this.controls.enableZoom = true
+    this.controls.panSpeed = 0.5
+    this.controls.rotateSpeed = 0.5
+    this.controls.zoomSpeed = 0.5
+
 
     this.renderer = new WebGLRenderer({
       alpha: true,
@@ -79,7 +83,7 @@ class Home extends Component {
     this.scene.add(lightOne.target)
 
     // Create a Plane for the ground
-    const geometry = new PlaneBufferGeometry(15, 10, 5,)
+    const geometry = new PlaneBufferGeometry(15, 10, 1,)
     const material = new MeshPhongMaterial({
       color: 0x156289,
       emissive: 0x072534,
@@ -133,7 +137,11 @@ class Home extends Component {
 
   loadBarrel = () => {
     const geometry = new BoxBufferGeometry(0.1, 0.1, 0.1)
-    this.cube = new Mesh(geometry)
+    const material = new MeshPhongMaterial({
+      opacity: 0,
+      transparent: true,
+    });
+    this.cube = new Mesh(geometry, material)
     this.cube.scale.set(0.5, 0.5, 0.5)
     this.scene.add(this.cube)
 
