@@ -6,8 +6,11 @@ import {
   AnimationMixer,
   BoxBufferGeometry,
   DirectionalLight,
+  DoubleSide,
   Mesh,
+  MeshPhongMaterial,
   PerspectiveCamera,
+  PlaneBufferGeometry,
   Scene,
   Vector3,
   WebGLRenderer,
@@ -52,7 +55,8 @@ class Home extends Component {
       1,
       1000
     )
-    this.camera.position.z = 5 // change this if needed
+    this.camera.position.z = 5 // back up away from scene
+    this.camera.position.y = 1 // above the scene
     this.controls = new OrbitControls(this.camera, this.mount)
     this.controls.enableZoom = false
 
@@ -73,6 +77,19 @@ class Home extends Component {
     lightOne.target.position.set(0, 0, 0)
     this.scene.add(lightOne)
     this.scene.add(lightOne.target)
+
+    // Create a Plane for the ground
+    const geometry = new PlaneBufferGeometry(15, 10, 5,)
+    const material = new MeshPhongMaterial({
+      color: 0x156289,
+      emissive: 0x072534,
+      side: DoubleSide,
+      flatShading: true,
+    })
+    this.plane = new Mesh(geometry, material)
+    this.plane.rotation.x -= Math.PI / 2
+    this.plane.position.y -= 0.5
+    this.scene.add(this.plane)
 
     // Click Event
     // this.raycaster = new THREE.Raycaster()
@@ -103,7 +120,7 @@ class Home extends Component {
     loader.load(url, gltf => {
       this.house = gltf.scene
       this.scene.add(this.house)
-      this.house.rotation.y += 3.14 // pie = 0.5 circle
+      this.house.rotation.y += Math.PI
 
       // if built-in animations
       // this.millMixer = new AnimationMixer(gltf.scene)
