@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
 import styles from '../styles/home.module.scss'
-import { AmbientLight, AnimationMixer, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from 'three'
+import {
+  AmbientLight,
+  AnimationMixer,
+  BoxBufferGeometry,
+  DirectionalLight,
+  Mesh,
+  PerspectiveCamera,
+  Scene,
+  Vector3,
+  WebGLRenderer,
+} from 'three'
 import { GLTFLoader } from '../utils/GLTFLoader'
 import { OrbitControls } from '../utils/OrbitControls'
 
@@ -28,9 +38,7 @@ class Home extends Component {
   }
 
   handleWindowResize = () => {
-    const container = document
-      .getElementById('canvas')
-      .getBoundingClientRect()
+    const container = document.getElementById('canvas').getBoundingClientRect()
     this.renderer.setSize(container.width, container.height)
     this.camera.aspect = window.innerWidth / window.innerHeight
     this.camera.updateProjectionMatrix()
@@ -51,9 +59,7 @@ class Home extends Component {
     this.renderer = new WebGLRenderer({
       alpha: true,
     })
-    const container = document
-      .getElementById('canvas')
-      .getBoundingClientRect()
+    const container = document.getElementById('canvas').getBoundingClientRect()
     this.renderer.setSize(container.width, container.height)
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.mount.appendChild(this.renderer.domElement)
@@ -94,7 +100,7 @@ class Home extends Component {
   loadHouse = () => {
     const loader = new GLTFLoader()
     const url = '/models/wooden_house/scene.gltf'
-    loader.load(url, (gltf) => {
+    loader.load(url, gltf => {
       this.house = gltf.scene
       this.scene.add(this.house)
       this.house.rotation.y += 3.14 // pie = 0.5 circle
@@ -109,15 +115,19 @@ class Home extends Component {
   }
 
   loadBarrel = () => {
-    // try adding a empty object, attaching the barrel and scaling the empty object
+    const geometry = new BoxBufferGeometry(0.1, 0.1, 0.1)
+    this.cube = new Mesh(geometry)
+    this.cube.scale.set(0.5, 0.5, 0.5)
+    this.scene.add(this.cube)
+
     const loader = new GLTFLoader()
     const url = '/models/old_barrel/scene.gltf'
-    loader.load(url, (gltf) => {
+    loader.load(url, gltf => {
       this.barrel = gltf.scene
-      this.scene.add(this.barrel)
-      this.barrel.position.x -= 5
-  })
-}
+      this.cube.add(this.barrel)
+      this.cube.position.x -= 5
+    })
+  }
 
   animate = () => {
     if (this.resizeRendererToDisplaySize(this.renderer)) {
@@ -131,7 +141,7 @@ class Home extends Component {
     this.renderer.render(this.scene, this.camera)
   }
 
-  resizeRendererToDisplaySize = (renderer) => {
+  resizeRendererToDisplaySize = renderer => {
     const canvas = renderer.domElement
     const width = canvas.clientWidth
     const height = canvas.clientHeight
@@ -144,10 +154,10 @@ class Home extends Component {
 
   render() {
     return (
-      <div className={styles["canvas-cont"]}>
+      <div className={styles['canvas-cont']}>
         <div
-          ref={(ref) => (this.mount = ref)}
-          id="canvas"
+          ref={ref => (this.mount = ref)}
+          id='canvas'
           className={styles.canvas}
         />
       </div>
