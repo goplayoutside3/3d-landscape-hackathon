@@ -30,7 +30,7 @@ class Home extends Component {
   componentDidMount() {
     this.sceneSetup()
     this.loadGrass()
-    // this.loadHouse()
+    this.loadHouse()
     this.animate() // this is the 'render loop' for Three.js
     window.addEventListener('resize', this.handleWindowResize)
   }
@@ -148,7 +148,7 @@ class Home extends Component {
 
   loadHouse = () => {
     const loader = new GLTFLoader()
-    const url = '/models/mountaineers_cabin/scene.gltf'
+    const url = '/models/cabin/mountaineers_cabin.gltf'
     loader.load(url, gltf => {
       this.house = gltf.scene
       this.scene.add(this.house)
