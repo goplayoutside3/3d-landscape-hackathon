@@ -1,0 +1,11 @@
+Model Information:
+* title:	Yosemite Historic Mountaineers Cabin
+* source:	https://sketchfab.com/3d-models/yosemite-historic-mountaineers-cabin-71a50fcd3d674f388df179015cb139f9
+* author:	Raphael Escamilla (https://sketchfab.com/Raffey)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Yosemite Historic Mountaineers Cabin" (https://sketchfab.com/3d-models/yosemite-historic-mountaineers-cabin-71a50fcd3d674f388df179015cb139f9) by Raphael Escamilla (https://sketchfab.com/Raffey) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -12,6 +12,7 @@ import {
   PerspectiveCamera,
   PlaneBufferGeometry,
   Scene,
+  TextureLoader,
   Vector3,
   WebGLRenderer,
 } from 'three'
@@ -28,8 +29,9 @@ class Home extends Component {
 
   componentDidMount() {
     this.sceneSetup()
+    this.loadFlattenedGrass()
     this.loadHouse()
-    this.loadBarrel()
+    // this.loadBarrel()
     this.animate() // this is the 'render loop' for Three.js
     window.addEventListener('resize', this.handleWindowResize)
   }
@@ -85,11 +87,13 @@ class Home extends Component {
     // Create a Plane for the ground
     const geometry = new PlaneBufferGeometry(15, 10, 1,)
     const material = new MeshPhongMaterial({
-      color: 0x156289,
-      emissive: 0x072534,
+      color: 0x4C5B43,
+      emissive: 0x2A251F,
       side: DoubleSide,
       flatShading: true,
     })
+    // add texture
+    material.needsUpdate = true
     this.plane = new Mesh(geometry, material)
     this.plane.rotation.x -= Math.PI / 2
     this.plane.position.y -= 0.5
@@ -116,6 +120,25 @@ class Home extends Component {
       this.dumpObject(child, lines, isLast, newPrefix)
     })
     return lines
+  }
+
+  loadFlattenedGrass = () => {
+    const geometry = new BoxBufferGeometry(1, 1, 1)
+    const material = new MeshPhongMaterial({
+      opacity: 0,
+      transparent: true,
+    });
+    this.grassObj = new Mesh(geometry, material)
+    this.grassObj.scale.set(0.006, 0.006, 0.006)
+    this.scene.add(this.grassObj)
+    const loader = new GLTFLoader()
+    const url = '/models/flattened_grass/scene.gltf'
+    loader.load(url, gltf => {
+      this.grass = gltf.scene 
+      this.grassObj.add(this.grass)
+      this.grassObj.position.y -= 0.5
+      this.grassObj.position.x =+ 3
+    })
   }
 
   loadHouse = () => {
