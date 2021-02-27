@@ -29,8 +29,8 @@ class Home extends Component {
 
   componentDidMount() {
     this.sceneSetup()
-    this.loadFlattenedGrass()
-    this.loadHouse()
+    this.loadGrass()
+    // this.loadHouse()
     // this.loadBarrel()
     this.animate() // this is the 'render loop' for Three.js
     window.addEventListener('resize', this.handleWindowResize)
@@ -91,6 +91,8 @@ class Home extends Component {
       emissive: 0x2A251F,
       side: DoubleSide,
       flatShading: true,
+      transparent: true,
+      opacity: 0.5
     })
     // add texture
     material.needsUpdate = true
@@ -122,22 +124,12 @@ class Home extends Component {
     return lines
   }
 
-  loadFlattenedGrass = () => {
-    const geometry = new BoxBufferGeometry(1, 1, 1)
-    const material = new MeshPhongMaterial({
-      opacity: 0,
-      transparent: true,
-    });
-    this.grassObj = new Mesh(geometry, material)
-    this.grassObj.scale.set(0.006, 0.006, 0.006)
-    this.scene.add(this.grassObj)
+  loadGrass = () => {
     const loader = new GLTFLoader()
-    const url = '/models/flattened_grass/scene.gltf'
+    const url = '/models/flattened_grass/flattened_grass.gltf'
     loader.load(url, gltf => {
       this.grass = gltf.scene 
-      this.grassObj.add(this.grass)
-      this.grassObj.position.y -= 0.5
-      this.grassObj.position.x =+ 3
+      this.scene.add(this.grass)
     })
   }
 
