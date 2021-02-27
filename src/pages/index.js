@@ -88,11 +88,8 @@ class Home extends Component {
     const geometry = new PlaneBufferGeometry(15, 10, 1,)
     const material = new MeshPhongMaterial({
       color: 0x4C5B43,
-      emissive: 0x2A251F,
       side: DoubleSide,
       flatShading: true,
-      transparent: true,
-      opacity: 0.5
     })
     // add texture
     material.needsUpdate = true
@@ -126,10 +123,14 @@ class Home extends Component {
 
   loadGrass = () => {
     const loader = new GLTFLoader()
-    const url = '/models/flattened_grass/flattened_grass.gltf'
-    loader.load(url, gltf => {
-      this.grass = gltf.scene 
-      this.scene.add(this.grass)
+    loader.load('/models/flattened_grass/flattened_grass.gltf', gltf => {
+      const flattenedGrass = gltf.scene 
+      this.scene.add(flattenedGrass)
+    })
+    loader.load('/models/grass_chunk/grass_chunk.gltf', gltf => {
+      const grassChunk = gltf.scene 
+      this.scene.add(grassChunk)
+      grassChunk.position.x += 3
     })
   }
 
