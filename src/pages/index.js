@@ -64,7 +64,6 @@ class Home extends Component {
     this.controls.rotateSpeed = 0.5
     this.controls.zoomSpeed = 0.5
 
-
     this.renderer = new WebGLRenderer({
       alpha: true,
     })
@@ -84,9 +83,9 @@ class Home extends Component {
     this.scene.add(lightOne.target)
 
     // Create a Plane for the ground
-    const geometry = new PlaneBufferGeometry(15, 10, 1,)
+    const geometry = new PlaneBufferGeometry(15, 10, 1)
     const material = new MeshPhongMaterial({
-      color: 0x4C5B43,
+      color: 0x4c5b43,
       side: DoubleSide,
       flatShading: true,
     })
@@ -123,41 +122,46 @@ class Home extends Component {
   loadGrass = () => {
     const loader = new GLTFLoader()
     loader.load('/models/flattened_grass/flattened_grass.gltf', gltf => {
-      const flattenedGrass = gltf.scene 
+      const flattenedGrass = gltf.scene
       this.scene.add(flattenedGrass)
     })
     loader.load('/models/grass_chunk/grass_chunk.gltf', gltf => {
-      const grassChunk = gltf.scene 
+      const grassChunk = gltf.scene
       this.scene.add(grassChunk)
       grassChunk.position.x += 4
     })
     loader.load('/models/small_grass_chunk/small_grass_chunk.gltf', gltf => {
-      const grassChunk = gltf.scene 
+      const grassChunk = gltf.scene
       this.scene.add(grassChunk)
       grassChunk.position.x -= 4
     })
-    loader.load('/models/smallest_grass_chunk/smallest_grass_chunk.gltf', gltf => {
-      const grassChunk = gltf.scene 
-      this.scene.add(grassChunk)
-      grassChunk.position.x -= 4
-      grassChunk.position.z -= 2
-    })
+    loader.load(
+      '/models/smallest_grass_chunk/smallest_grass_chunk.gltf',
+      gltf => {
+        const grassChunk = gltf.scene
+        this.scene.add(grassChunk)
+        grassChunk.position.x -= 4
+        grassChunk.position.z -= 2
+      }
+    )
   }
 
   loadHouse = () => {
     const loader = new GLTFLoader()
-    const url = '/models/wooden_house/scene.gltf'
+    const url = '/models/mountaineers_cabin/scene.gltf'
     loader.load(url, gltf => {
       this.house = gltf.scene
       this.scene.add(this.house)
-      this.house.rotation.y += Math.PI
+      // this.house.rotation.y += Math.PI
+    })
+  }
 
-      // if built-in animations
-      // this.millMixer = new AnimationMixer(gltf.scene)
-      // this.clips = gltf.animations
-      // this.clips.forEach((clip) => {
-      //   this.millMixer.clipAction(clip).play()
-      // })
+  loadRabbit = () => {
+    // run this inside the loader if built-in animations
+    this.millMixer = new AnimationMixer(gltf.scene)
+    this.clips = gltf.animations
+    this.clips.forEach(clip => {
+      this.millMixer.clipAction(clip).play()
     })
   }
 
