@@ -22,7 +22,16 @@ import classes from 'classnames'
 class Home extends Component {
   constructor(props) {
     super(props)
+    this.camera = null
+    this.controls = null
+    this.renderer = null
+    this.scene = null
+    this.mount = null
+    this.mouse = null
+    this.raycaster = null
+    this.rabbit = null
     this.state = {
+      animating: false,
       audioPlaying: false,
     }
   }
@@ -30,6 +39,7 @@ class Home extends Component {
   componentDidMount() {
     this.sceneSetup()
     this.loadPlants()
+    this.loadRabbit()
     this.animate() // this is the 'render loop' for Three.js
     window.addEventListener('resize', this.handleWindowResize)
   }
@@ -38,6 +48,7 @@ class Home extends Component {
     window.removeEventListener('resize', this.handleWindowResize)
     window.cancelAnimationFrame(this.requestID)
     this.controls.dispose()
+
     // this.renderer.domElement.removeEventListener(
     //   'mousemove',
     //   this.handleMarkerHover
@@ -60,7 +71,9 @@ class Home extends Component {
       1000
     )
     this.camera.position.z = 4 // back up away from scene
-    this.camera.position.y = 2 // above the scene
+    this.camera.position.y = 2.5 // above the scene
+    this.camera.lookAt(0, 0, 0)
+
     this.controls = new OrbitControls(this.camera, this.mount)
     this.controls.enableZoom = true
     this.controls.panSpeed = 0.5
@@ -86,7 +99,7 @@ class Home extends Component {
     this.scene.add(lightOne.target)
 
     // Create a Plane for the ground
-    const geometry = new PlaneBufferGeometry(15, 10, 1)
+    const geometry = new PlaneBufferGeometry(12, 8, 1)
     const material = new MeshBasicMaterial({
       color: 0x433519,
       side: DoubleSide,
@@ -100,6 +113,7 @@ class Home extends Component {
     // Click Event
     this.raycaster = new Raycaster()
     this.mouse = new Vector2()
+
     // this.renderer.domElement.addEventListener(
     //   'mousemove',
     //   this.handleHover,
@@ -111,7 +125,10 @@ class Home extends Component {
     const loader = new GLTFLoader()
     loader.load('/models/flattened_grass/flattened_grass.gltf', gltf => {
       const flattenedGrass = gltf.scene
-      this.scene.add(flattenedGrass)
+      const clone = gltf.scene.clone()
+      clone.position.z += 1
+      clone.position.x += 0.5
+      this.scene.add(flattenedGrass, clone)
     })
     loader.load('/models/grass_chunk/grass_chunk.gltf', gltf => {
       const grassChunk = gltf.scene
@@ -162,11 +179,20 @@ class Home extends Component {
   }
 
   loadRabbit = () => {
-    // run this inside the loader if built-in animations
-    this.millMixer = new AnimationMixer(gltf.scene)
-    this.clips = gltf.animations
-    this.clips.forEach(clip => {
-      this.millMixer.clipAction(clip).play()
+    const loader = new GLTFLoader()
+
+    loader.load('/models/rabbit/rabbit.gltf', gltf => {
+      this.rabbit = gltf.scene
+      this.rabbit.rotation.y += Math.PI / 2
+      this.rabbit.position.y += 1
+      this.scene.add(this.rabbit)
+
+      this.millMixer = new AnimationMixer(gltf.scene)
+      this.clips = gltf.animations
+      this.clips.forEach(clip => {
+        this.millMixer.clipAction(clip).play()
+        this.millMixer.clipAction(clip).paused = true
+      })
     })
   }
 
@@ -178,7 +204,7 @@ class Home extends Component {
     }
 
     requestAnimationFrame(this.animate)
-    // if (this.millMixer) this.millMixer.update(0.04)
+    if (this.millMixer) this.millMixer.update(0.01)
     this.renderer.render(this.scene, this.camera)
   }
 
@@ -198,15 +224,12 @@ class Home extends Component {
     this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1
     this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
     this.raycaster.setFromCamera(this.mouse, this.camera)
-    const intersects = this.raycaster.intersectObjects(
-      [this.tulip, this.daffodil],
-      true
-    )
+    const intersects = this.raycaster.intersectObjects([], true)
     if (intersects.length > 0) {
-      // console.log('hovering')
+      console.log('hovering')
       // document.body.classList.add('marker-hover')
     } else {
-      // console.log('not hovering')
+      console.log('not hovering')
       // document.body.classList.remove('marker-hover')
     }
   }
@@ -221,13 +244,37 @@ class Home extends Component {
     }
   }
 
+  handleRabbit = () => {
+    if (this.state.animating) {
+      this.clips.forEach(clip => {
+        this.millMixer.clipAction(clip).paused = true
+      })
+      this.setState({ animating: false })
+    } else {
+      console.log('animate')
+      this.clips.forEach(clip => {
+        this.millMixer.clipAction(clip).paused = false
+      })
+      this.setState({ animating: true })
+    }
+  }
+
   render() {
     return (
       <div className={styles['canvas-cont']}>
-        <audio ref={ref => (this.audio = ref)} loop src='/spring.mp3' type='audio/mp3' />
-        <button onClick={this.handleAudio} className={classes(styles.audio, {
-          [styles.playing] : this.state.audioPlaying
-        })} />
+        <audio
+          ref={ref => (this.audio = ref)}
+          loop
+          src='/spring.mp3'
+          type='audio/mp3'
+        />
+        <button
+          onClick={this.handleAudio}
+          className={classes(styles.audio, {
+            [styles.playing]: this.state.audioPlaying,
+          })}
+        />
+        <button onClick={this.handleRabbit} className={styles.rabbit} >Animate</button>
         <div
           ref={ref => (this.mount = ref)}
           id='canvas'
