@@ -2,9 +2,51 @@
   height: 100vh;
   width: 100%;
   background: linear-gradient(to top, #d9a7c7, #fffcdc);
+  position: relative;
 }
 
 .canvas {
   height: 100%;
   width: 100%;
+}
+
+.audio {
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border: none;
+  outline: none;
+  background: transparent;
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  background-image: url('/music-solid.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 200ms linear;
+
+  &:hover {
+    transform: scale(1.5);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    height: 3px;
+    width: 135%;
+    border-radius: 2px;
+    background: black;
+    transform: rotate(20deg);
+    transition: opacity 200ms linear;
+  }
+
+  &.playing {
+    &:after {
+      opacity: 0;
+    }
+  }
 }

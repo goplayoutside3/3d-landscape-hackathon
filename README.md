@@ -27,12 +27,9 @@ This app is deployed at: [3d-landscape-hackathon.vercel.app/](https://3d-landsca
 ## 3D Model Credits
 
 Models downloaded from [Sketchfab](https://sketchfab.com/), [CGTrader](https://www.cgtrader.com/) and [Free3D](https://free3d.com/).
-- Wooden House & Barrel by [aksyonov](https://sketchfab.com/aksyonov).
 - Garden Table and Chairs by [Ryoce](https://sketchfab.com/Ryoce).
-- Garden Hose by [Brandon Westlake](https://sketchfab.com/dr.badass2142).
 - Wheelbarrow by [Evan](https://sketchfab.com/Evanz).
 - Red Tree by [BaptisteBerard](https://sketchfab.com/BaptisteBerard).
-- Mountaineers Cabin by [Raphael Escalmilla](https://sketchfab.com/Raffey).
 - Rabbit by [FourthGreen](https://sketchfab.com/FourthGreen).
 - Grass by [F A L C O N](https://sketchfab.com/qewr1324).
 - Crocus, Daffodil, Snowdrop, Tulip Flowers by [printable_models](https://free3d.com/user/printable_models).
