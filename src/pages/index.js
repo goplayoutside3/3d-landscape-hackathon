@@ -28,7 +28,7 @@ class Home extends Component {
   componentDidMount() {
     this.sceneSetup()
     this.loadGrass()
-    this.loadHouse()
+    // this.loadHouse()
     this.animate() // this is the 'render loop' for Three.js
     window.addEventListener('resize', this.handleWindowResize)
   }
@@ -140,6 +140,30 @@ class Home extends Component {
         grassChunk.position.z -= 2
       }
     )
+    loader.load('/models/crocus/crocus.gltf', gltf => {
+      const crocus = gltf.scene
+      this.scene.add(crocus)
+      crocus.position.x += 1
+    })
+    loader.load('/models/daffodil/daffodil.gltf', gltf => {
+      const daffodil = gltf.scene
+      this.scene.add(daffodil)
+      daffodil.position.x -= 1
+    })
+    loader.load('/models/tulip/tulip.gltf', gltf => {
+      const tulip = gltf.scene
+      this.scene.add(tulip)
+      tulip.position.z -= 1
+    })
+    loader.load('/models/snowdrop/snowdrop.gltf', gltf => {
+      const snowdrop = gltf.scene
+      this.scene.add(snowdrop)
+      snowdrop.position.z += 1
+    })
+    loader.load('/models/anemone/anemone.gltf', gltf => {
+      const anemone = gltf.scene
+      this.scene.add(anemone)
+    })
   }
 
   loadHouse = () => {

@@ -1,0 +1,482 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.5.17",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "12970_snowdrop_flower_v1_l2",
+            "scale" : [
+                0.10999999940395355,
+                0.10999999940395355,
+                0.10999999940395355
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "snowdrop_flower_pestle",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.9097999930381775,
+                    0.6470999717712402,
+                    0.13330000638961792,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.8267949223518372
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "snowdrop_flower_stem",
+            "normalTexture" : {
+                "index" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.7527933716773987
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "snowdrop_flower_petal",
+            "normalTexture" : {
+                "index" : 2
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 3
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.7596299052238464
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "snowdrop_flower_leaf",
+            "normalTexture" : {
+                "index" : 4
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 5
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.7666666507720947
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "snowdrop_flower_leaves",
+            "normalTexture" : {
+                "index" : 6
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 7
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.8401389718055725
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "12970_snowdrop_flower_v1_l2",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 1
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 2
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 12,
+                        "NORMAL" : 13,
+                        "TEXCOORD_0" : 14
+                    },
+                    "indices" : 15,
+                    "material" : 3
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 16,
+                        "NORMAL" : 17,
+                        "TEXCOORD_0" : 18
+                    },
+                    "indices" : 19,
+                    "material" : 4
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "snowdrop_flower_bump",
+            "uri" : "snowdrop_flower_bump.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "snowdrop_flower_diffuse",
+            "uri" : "snowdrop_flower_diffuse.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 2297,
+            "max" : [
+                0.5996233224868774,
+                7.47752571105957,
+                1.136959433555603
+            ],
+            "min" : [
+                -0.7225144505500793,
+                4.917701244354248,
+                0.6864367723464966
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 2297,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 2297,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 5664,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 4308,
+            "max" : [
+                0.6093000173568726,
+                8.141864776611328,
+                1.0024000406265259
+            ],
+            "min" : [
+                -0.6480000019073486,
+                -0.040201179683208466,
+                -0.22337864339351654
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 4308,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 4308,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 20229,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 6080,
+            "max" : [
+                0.9645345211029053,
+                7.57480001449585,
+                1.6923829317092896
+            ],
+            "min" : [
+                -1.2892791032791138,
+                4.334296703338623,
+                -0.04800000041723251
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 6080,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 6080,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5123,
+            "count" : 30255,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5126,
+            "count" : 1484,
+            "max" : [
+                1.1004834175109863,
+                4.230022430419922,
+                1.2037999629974365
+            ],
+            "min" : [
+                -2.718402624130249,
+                -0.0357959121465683,
+                -2.646073341369629
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5126,
+            "count" : 1484,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5126,
+            "count" : 1484,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 15,
+            "componentType" : 5123,
+            "count" : 7704,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 16,
+            "componentType" : 5126,
+            "count" : 808,
+            "max" : [
+                0.6079388856887817,
+                1.348509669303894,
+                -0.025200000032782555
+            ],
+            "min" : [
+                0.15119999647140503,
+                -0.2714850604534149,
+                -0.3644999861717224
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 17,
+            "componentType" : 5126,
+            "count" : 808,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 18,
+            "componentType" : 5126,
+            "count" : 808,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 19,
+            "componentType" : 5123,
+            "count" : 3204,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 27564,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 27564,
+            "byteOffset" : 27564
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 18376,
+            "byteOffset" : 55128
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 11328,
+            "byteOffset" : 73504
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 51696,
+            "byteOffset" : 84832
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 51696,
+            "byteOffset" : 136528
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 34464,
+            "byteOffset" : 188224
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 40458,
+            "byteOffset" : 222688
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 72960,
+            "byteOffset" : 263148
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 72960,
+            "byteOffset" : 336108
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 48640,
+            "byteOffset" : 409068
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 60510,
+            "byteOffset" : 457708
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 17808,
+            "byteOffset" : 518220
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 17808,
+            "byteOffset" : 536028
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 11872,
+            "byteOffset" : 553836
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 15408,
+            "byteOffset" : 565708
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 9696,
+            "byteOffset" : 581116
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 9696,
+            "byteOffset" : 590812
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 6464,
+            "byteOffset" : 600508
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 6408,
+            "byteOffset" : 606972
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 613380,
+            "uri" : "snowdrop.bin"
+        }
+    ]
+}

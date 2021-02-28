@@ -1,0 +1,304 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.5.17",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "12978_tulip_flower_l3",
+            "scale" : [
+                0.05000000074505806,
+                0.05000000074505806,
+                0.05000000074505806
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "default",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.8945907354354858
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "leaf",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.8945907354354858
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "petal",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 2
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.8945907354354858
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "12978_tulip_flower_l3",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 1
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 2
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "12978_tulip_flower_stalk_Diffuse",
+            "uri" : "12978_tulip_flower_stalk_Diffuse.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "12978_tulip_flower_leaf_Diffuse",
+            "uri" : "12978_tulip_flower_leaf_Diffuse.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "12978_tulip_flower_petal_Diffuse",
+            "uri" : "12978_tulip_flower_petal_Diffuse.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 3334,
+            "max" : [
+                1.1670056581497192,
+                15.453301429748535,
+                0.48389193415641785
+            ],
+            "min" : [
+                -0.681083619594574,
+                0.06831616163253784,
+                -0.42336779832839966
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 3334,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 3334,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 16770,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 2757,
+            "max" : [
+                2.9650650024414062,
+                16.455400466918945,
+                2.8450253009796143
+            ],
+            "min" : [
+                -2.922670841217041,
+                2.7672300338745117,
+                -1.4671425819396973
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 2757,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 2757,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 15414,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 8696,
+            "max" : [
+                2.856410026550293,
+                16.960979461669922,
+                2.187131643295288
+            ],
+            "min" : [
+                -1.2165539264678955,
+                13.284819602966309,
+                -1.5664492845535278
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 8696,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 8696,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5123,
+            "count" : 45690,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 40008,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 40008,
+            "byteOffset" : 40008
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 26672,
+            "byteOffset" : 80016
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 33540,
+            "byteOffset" : 106688
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 33084,
+            "byteOffset" : 140228
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 33084,
+            "byteOffset" : 173312
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 22056,
+            "byteOffset" : 206396
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 30828,
+            "byteOffset" : 228452
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 104352,
+            "byteOffset" : 259280
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 104352,
+            "byteOffset" : 363632
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 69568,
+            "byteOffset" : 467984
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 91380,
+            "byteOffset" : 537552
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 628932,
+            "uri" : "tulip.bin"
+        }
+    ]
+}
