@@ -99,7 +99,7 @@ class Home extends Component {
     this.scene.add(lightOne.target)
 
     // Create a Plane for the ground
-    const geometry = new PlaneBufferGeometry(12, 8, 1)
+    const geometry = new PlaneBufferGeometry(10.5, 7, 1)
     const material = new MeshBasicMaterial({
       color: 0x433519,
       side: DoubleSide,
@@ -124,67 +124,78 @@ class Home extends Component {
   loadPlants = () => {
     const loader = new GLTFLoader()
     loader.load('/models/flattened_grass/flattened_grass.gltf', gltf => {
-      const flattenedGrass = gltf.scene
       const clone = gltf.scene.clone()
-      clone.position.z += 1
-      clone.position.x += 0.5
-      this.scene.add(flattenedGrass, clone)
+      const clone2 = gltf.scene.clone()
+      const clone3 = gltf.scene.clone()
+      clone.position.set(0.5, 0, 0.9)
+      clone2.position.set(3.4, 0, 0.95)
+      clone3.position.set(-3.5, 0, -0.9)
+      this.scene.add(gltf.scene, clone, clone2, clone3)
     })
     loader.load('/models/grass_chunk/grass_chunk.gltf', gltf => {
-      const grassChunk = gltf.scene
-      this.scene.add(grassChunk)
-      grassChunk.position.x += 4
+      const clone = gltf.scene.clone()
+      const clone2 = gltf.scene.clone()
+      this.scene.add(gltf.scene, clone, clone2)
+      gltf.scene.position.set(3.8, 0, -3.8)
+      clone.position.set(-2.8, 0, 1.2)
+      clone2.position.set(-1.5, 0, -3.7)
     })
     loader.load('/models/small_grass_chunk/small_grass_chunk.gltf', gltf => {
-      const grassChunk = gltf.scene
-      this.scene.add(grassChunk)
-      grassChunk.position.x -= 4
+      const clone = gltf.scene
+      const clone2 = gltf.scene
+      const clone3 = gltf.scene
+      this.scene.add(gltf.scene, clone, clone2, clone3)
+      gltf.scene.position.set(-4, 0, 0)
+      clone.position.set(0, 0, -3.7)
+      clone2.position.set(0.8, 0, -3.6)
+      clone3.position.set(1.5, 0, -3.7)
     })
     loader.load(
       '/models/smallest_grass_chunk/smallest_grass_chunk.gltf',
       gltf => {
-        const grassChunk = gltf.scene
-        this.scene.add(grassChunk)
-        grassChunk.position.x -= 4
-        grassChunk.position.z -= 2
+        const clone = gltf.scene.clone()
+        const clone2 = gltf.scene.clone()
+        this.scene.add(gltf.scene, clone, clone2)
+        gltf.scene.position.set(4, 0, 2)
+        clone.position.set(-4, 0, 0)
+        clone2.position.set(1.5, 0, 1.8)
       }
     )
     loader.load('/models/crocus/crocus.gltf', gltf => {
-      const crocus = gltf.scene
-      this.scene.add(crocus)
-      crocus.position.x += 1
+      const clone = gltf.scene.clone()
+      const clone2 = gltf.scene.clone()
+      const clone3 = gltf.scene.clone()
+      this.scene.add(gltf.scene, clone, clone2, clone3)
+      gltf.scene.position.set(1, 0, 0)
+      clone.position.set(2, 0, 2)
+      clone2.position.set(2.5, 0, 1)
+      clone3.position.set(-2.5, 0, 1.5)
     })
     loader.load('/models/daffodil/daffodil.gltf', gltf => {
-      this.daffodil = gltf.scene
-      this.scene.add(this.daffodil)
-      this.daffodil.position.x -= 1
+      this.scene.add(gltf.scene)
+      gltf.scene.position.set(1, 0, 1)
     })
     loader.load('/models/tulip/tulip.gltf', gltf => {
-      this.tulip = gltf.scene
-      this.scene.add(this.tulip)
-      this.tulip.position.z -= 1
+      this.scene.add(gltf.scene)
+      gltf.scene.position.set(0, 0, -1)
     })
     loader.load('/models/snowdrop/snowdrop.gltf', gltf => {
       const clone = gltf.scene.clone()
-      const snowdrop = gltf.scene
-      this.scene.add(snowdrop)
-      this.scene.add(clone)
-      snowdrop.position.z += 1
+      this.scene.add(gltf.scene, clone)
+      gltf.scene.position.set(0, 0, 1)
     })
     loader.load('/models/anemone/anemone.gltf', gltf => {
-      const anemone = gltf.scene
-      this.scene.add(anemone)
-      anemone.position.x += 2
+      this.scene.add(gltf.scene)
+      gltf.scene.position.set(2, 0, 0)
     })
   }
 
   loadRabbit = () => {
     const loader = new GLTFLoader()
-
     loader.load('/models/rabbit/rabbit.gltf', gltf => {
       this.rabbit = gltf.scene
       this.rabbit.rotation.y += Math.PI / 2
-      this.rabbit.position.y += 1
+      this.rabbit.position.set(-3.5, 0, 0.5)
       this.scene.add(this.rabbit)
 
       this.millMixer = new AnimationMixer(gltf.scene)
@@ -244,7 +255,7 @@ class Home extends Component {
     }
   }
 
-  handleRabbit = () => {
+  handleRabbitAnimation = () => {
     if (this.state.animating) {
       this.clips.forEach(clip => {
         this.millMixer.clipAction(clip).paused = true
@@ -261,26 +272,34 @@ class Home extends Component {
 
   render() {
     return (
-      <div className={styles['canvas-cont']}>
-        <audio
-          ref={ref => (this.audio = ref)}
-          loop
-          src='/spring.mp3'
-          type='audio/mp3'
-        />
-        <button
-          onClick={this.handleAudio}
-          className={classes(styles.audio, {
-            [styles.playing]: this.state.audioPlaying,
-          })}
-        />
-        <button onClick={this.handleRabbit} className={styles.rabbit} >Animate</button>
-        <div
-          ref={ref => (this.mount = ref)}
-          id='canvas'
-          className={styles.canvas}
-        />
-      </div>
+      <>
+        <Head>
+          <title>3D Flower Field</title>
+          <link rel='shortcut icon' type='image/x-icon' href=''></link>
+        </Head>
+        <main className={styles['canvas-cont']}>
+          <audio
+            ref={ref => (this.audio = ref)}
+            loop
+            src='/spring.mp3'
+            type='audio/mp3'
+          />
+          <button
+            onClick={this.handleAudio}
+            className={classes(styles.audio, {
+              [styles.playing]: this.state.audioPlaying,
+            })}
+          />
+          <button onClick={this.handleRabbitAnimation} className={styles.rabbit}>
+            Animate
+          </button>
+          <div
+            ref={ref => (this.mount = ref)}
+            id='canvas'
+            className={styles.canvas}
+          />
+        </main>
+      </>
     )
   }
 }
