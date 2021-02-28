@@ -11,7 +11,6 @@ import {
   PerspectiveCamera,
   PlaneBufferGeometry,
   Scene,
-  TextureLoader,
   WebGLRenderer,
 } from 'three'
 import { GLTFLoader } from '../utils/GLTFLoader'
@@ -27,8 +26,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.sceneSetup()
-    this.loadGrass()
-    // this.loadHouse()
+    this.loadPlants()
     this.animate() // this is the 'render loop' for Three.js
     window.addEventListener('resize', this.handleWindowResize)
   }
@@ -54,8 +52,8 @@ class Home extends Component {
       1,
       1000
     )
-    this.camera.position.z = 5 // back up away from scene
-    this.camera.position.y = 1 // above the scene
+    this.camera.position.z = 4 // back up away from scene
+    this.camera.position.y = 2 // above the scene
     this.controls = new OrbitControls(this.camera, this.mount)
     this.controls.enableZoom = true
     this.controls.panSpeed = 0.5
@@ -71,11 +69,11 @@ class Home extends Component {
     this.mount.appendChild(this.renderer.domElement)
 
     // Lights
-    const ambientLight = new AmbientLight(0xffffff)
+    const ambientLight = new AmbientLight(0xffffff, 1)
     this.scene.add(ambientLight)
 
     const lightOne = new DirectionalLight(0xffffff, 1)
-    lightOne.position.set(0, 1, 0)
+    lightOne.position.set(0, 1, 0.5)
     lightOne.target.position.set(0, 0, 0)
     this.scene.add(lightOne)
     this.scene.add(lightOne.target)
@@ -83,7 +81,7 @@ class Home extends Component {
     // Create a Plane for the ground
     const geometry = new PlaneBufferGeometry(15, 10, 1)
     const material = new MeshBasicMaterial({
-      color: 0x131F0D,
+      color: 0x433519,
       side: DoubleSide,
     })
     // add texture
@@ -98,24 +96,7 @@ class Home extends Component {
     // this.mouse = new THREE.Vector2()
   }
 
-  // visual tree of GLTF object
-  dumpObject = (obj, lines = [], isLast = true, prefix = '') => {
-    const localPrefix = isLast ? '└─' : '├─'
-    lines.push(
-      `${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${
-        obj.type
-      }]`
-    )
-    const newPrefix = prefix + (isLast ? '  ' : '│ ')
-    const lastNdx = obj.children.length - 1
-    obj.children.forEach((child, ndx) => {
-      const isLast = ndx === lastNdx
-      this.dumpObject(child, lines, isLast, newPrefix)
-    })
-    return lines
-  }
-
-  loadGrass = () => {
+  loadPlants = () => {
     const loader = new GLTFLoader()
     loader.load('/models/flattened_grass/flattened_grass.gltf', gltf => {
       const flattenedGrass = gltf.scene
@@ -163,18 +144,7 @@ class Home extends Component {
     loader.load('/models/anemone/anemone.gltf', gltf => {
       const anemone = gltf.scene
       this.scene.add(anemone)
-    })
-  }
-
-  loadHouse = () => {
-    const loader = new GLTFLoader()
-    const url = '/models/cabin/mountaineers_cabin.gltf'
-    loader.load(url, gltf => {
-      this.house = gltf.scene
-      this.scene.add(this.house)
-      this.house.rotation.y += Math.PI
-      this.house.position.y -= 0.1
-      this.house.position.z -= 2
+      anemone.position.x += 2
     })
   }
 
