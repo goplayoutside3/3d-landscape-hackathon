@@ -70,8 +70,8 @@ class Home extends Component {
       1,
       1000
     )
-    this.camera.position.z = 2 // back up away from scene
-    this.camera.position.y = 4 // above the scene
+    this.camera.position.z = 3.5 // back up away from scene
+    this.camera.position.y = 2.5 // above the scene
     this.camera.lookAt(0, 0, 0)
 
     this.controls = new OrbitControls(this.camera, this.mount)
@@ -107,7 +107,7 @@ class Home extends Component {
     // Create a Plane for the ground
     const geometry = new PlaneBufferGeometry(10.5, 7, 1)
     const material = new MeshBasicMaterial({
-      color: 0x433519,
+      color: 0x4a3b1c,
       side: DoubleSide,
     })
     this.plane = new Mesh(geometry, material)
@@ -176,11 +176,16 @@ class Home extends Component {
       const clone3 = gltf.scene.clone()
       const clone4 = gltf.scene.clone()
       const clone5 = gltf.scene.clone()
+      const clone6 = gltf.scene.clone()
       gltf.scene.position.set(1, -0.1, 0.2)
       clone.position.set(2, 0, 2)
+      clone.rotation.set(0, 0.4, 0)
       clone2.position.set(2.8, 0, 1.1)
       clone3.position.set(2.4, -0.1, 1.4)
       clone4.position.set(3, -0.1, 1.2)
+      clone4.rotation.set(0, 1, 0)
+      clone5.position.set(0.1, 0, 0)
+      clone6.position.set(1.1, -0.2, 1.8)
       rabbitTrigger.position.set(-2.45, 0, 0.5)
       rabbitTrigger.userData.trigger = true
       this.flowerbed.add(
@@ -190,6 +195,7 @@ class Home extends Component {
         clone3,
         clone4,
         clone5,
+        clone6,
         rabbitTrigger
       )
     })
@@ -205,16 +211,21 @@ class Home extends Component {
     loader.load('/models/tulip/tulip.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
       const clone = gltf.scene.clone()
+      const clone2 = gltf.scene.clone()
+      const clone3 = gltf.scene.clone()
       gltf.scene.position.set(0, 0, -1)
       clone.position.set(4.2, -0.1, -1.9)
       clone.rotation.set(0, 1, 0)
-      this.flowerbed.add(gltf.scene, clone)
+      clone2.position.set(3.4, -0.2, 0.3)
+      clone3.position.set(-4.1, 0, -0.2)
+      this.flowerbed.add(gltf.scene, clone, clone2, clone3)
     })
     loader.load('/models/snowdrop/snowdrop.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
       const clone = gltf.scene.clone()
       const clone2 = gltf.scene.clone()
       const clone3 = gltf.scene.clone()
+      const clone4 = gltf.scene.clone()
       gltf.scene.position.set(2.7, 0, -2)
       clone.position.set(3.6, 0, -1.7)
       clone.rotation.set(0, 1, 0)
@@ -222,15 +233,20 @@ class Home extends Component {
       clone2.rotation.set(0, -1, 0)
       clone3.position.set(-3.2, 0, 1.5)
       clone3.rotation.set(0, 2, 0)
-      this.flowerbed.add(gltf.scene, clone, clone2, clone3)
+      clone4.position.set(0.8, -0.3, 1.5)
+      clone4.rotation.set(0, -0.4, 0)
+      this.flowerbed.add(gltf.scene, clone, clone2, clone3, clone4)
     })
     loader.load('/models/anemone/anemone.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
       const clone = gltf.scene.clone()
+      const clone2 = gltf.scene.clone()
       clone.position.set(-1.5, 0, -0.7)
       clone.rotation.set(0, 1.8, 0)
+      clone2.position.set(3.2, -0.1, 2.1)
+      clone2.rotation.set(0, -0.4, 0)
       gltf.scene.position.set(2, 0, 0)
-      this.flowerbed.add(gltf.scene, clone)
+      this.flowerbed.add(gltf.scene, clone, clone2)
     })
   }
 
