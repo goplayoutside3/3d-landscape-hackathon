@@ -6,6 +6,7 @@ import {
   AnimationMixer,
   DirectionalLight,
   DoubleSide,
+  Group,
   Mesh,
   MeshBasicMaterial,
   PerspectiveCamera,
@@ -105,11 +106,13 @@ class Home extends Component {
       color: 0x433519,
       side: DoubleSide,
     })
-    // add texture
-    material.needsUpdate = true
     this.plane = new Mesh(geometry, material)
     this.plane.rotation.x -= Math.PI / 2
     this.scene.add(this.plane)
+
+    // Flowers are attached to an object specifically for Raycasting
+    this.flowerbed = new Group()
+    this.scene.add(this.flowerbed)
 
     // Click Event
     this.raycaster = new Raycaster()
@@ -166,32 +169,32 @@ class Home extends Component {
       const clone = gltf.scene.clone()
       const clone2 = gltf.scene.clone()
       const clone3 = gltf.scene.clone()
-      this.scene.add(gltf.scene, clone, clone2, clone3)
       gltf.scene.position.set(1, 0, 0)
       clone.position.set(2, 0, 2)
       clone2.position.set(2.5, 0, 1)
       clone3.position.set(-2.5, 0, 1.5)
+      this.flowerbed.add(gltf.scene, clone, clone2, clone3)
     })
     loader.load('/models/daffodil/daffodil.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
-      this.scene.add(gltf.scene)
       gltf.scene.position.set(1, 0, 1)
+      this.flowerbed.add(gltf.scene)
     })
     loader.load('/models/tulip/tulip.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
-      this.scene.add(gltf.scene)
       gltf.scene.position.set(0, 0, -1)
+      this.flowerbed.add(gltf.scene)
     })
     loader.load('/models/snowdrop/snowdrop.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
       const clone = gltf.scene.clone()
-      this.scene.add(gltf.scene, clone)
       gltf.scene.position.set(0, 0, 1)
+      this.flowerbed.add(gltf.scene, clone)
     })
     loader.load('/models/anemone/anemone.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
-      this.scene.add(gltf.scene)
       gltf.scene.position.set(2, 0, 0)
+      this.flowerbed.add(gltf.scene)
     })
   }
 
@@ -241,7 +244,7 @@ class Home extends Component {
     this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1
     this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
     this.raycaster.setFromCamera(this.mouse, this.camera)
-    const intersects = this.raycaster.intersectObjects(this.scene.children, true)
+    const intersects = this.raycaster.intersectObjects(this.flowerbed.children, true)
     if (intersects.length > 0) {
       const currentIntersection = intersects[0].object.parent.parent
       if (currentIntersection && currentIntersection.userData.id) {
