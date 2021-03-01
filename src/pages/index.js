@@ -35,7 +35,7 @@ class Home extends Component {
     this.state = {
       animating: false,
       audioPlaying: false,
-      currentFlower: null
+      flowerAnimating: false,
     }
   }
 
@@ -51,10 +51,7 @@ class Home extends Component {
     window.removeEventListener('resize', this.handleWindowResize)
     window.cancelAnimationFrame(this.requestID)
     this.controls.dispose()
-    this.renderer.domElement.removeEventListener(
-      'mousemove',
-      this.handleHover
-    )
+    this.renderer.domElement.removeEventListener('mousemove', this.handleHover)
   }
 
   handleWindowResize = () => {
@@ -240,41 +237,44 @@ class Home extends Component {
 
   handleHover = e => {
     e.preventDefault()
-    const { currentFlower } = this.state
+    const { flowerAnimating } = this.state
+
     this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1
     this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
     this.raycaster.setFromCamera(this.mouse, this.camera)
-    const intersects = this.raycaster.intersectObjects(this.flowerbed.children, true)
-    if (intersects.length > 0) {
+    const intersects = this.raycaster.intersectObjects(
+      this.flowerbed.children,
+      true
+    )
+    if (intersects.length > 0 && !flowerAnimating) {
       const currentIntersection = intersects[0].object.parent.parent
       if (currentIntersection && currentIntersection.userData.id) {
-        if (currentFlower === null || currentFlower && currentFlower.userData.id !== currentIntersection.userData.id) {
-          this.setState({ currentFlower: currentIntersection })
-          let scaleRef = { value: 1 }
-          // change this to a swaying animation that auto completes
-          gsap.to(scaleRef, {
-            value: 1.5,
-            duration: 0.2,
-            ease: 'linear',
-            onUpdate: () => {
-              currentIntersection.scale.set(scaleRef.value, scaleRef.value, scaleRef.value)
-            }
-          })
-        }
-      }
-    } else {
-      if (currentFlower) {
-        let scaleRef = { value: 1.5 }
-        gsap.to(scaleRef, {
-          value: 1,
+        let scaleRef = { value: 0 }
+        const tl = gsap.timeline()
+        tl.to(scaleRef, {
+          value: 0.2,
           duration: 0.2,
-          ease: 'linear',
           onUpdate: () => {
-            currentFlower.scale.set(scaleRef.value, scaleRef.value, scaleRef.value)
-          }
+            currentIntersection.rotation.set(0, 0, scaleRef.value)
+          },
+          onStart: () => this.setState({ flowerAnimating: true }),
         })
+          .to(scaleRef, {
+            value: -0.2,
+            duration: 0.2,
+            onUpdate: () => {
+              currentIntersection.rotation.set(0, 0, scaleRef.value)
+            },
+          })
+          .to(scaleRef, {
+            value: 0,
+            duration: 0.2,
+            onUpdate: () => {
+              currentIntersection.rotation.set(0, 0, scaleRef.value)
+            },
+            onComplete: () => this.setState({ flowerAnimating: false }),
+          })
       }
-      this.setState({ currentFlower: null })
     }
   }
 
@@ -322,7 +322,10 @@ class Home extends Component {
               [styles.playing]: this.state.audioPlaying,
             })}
           />
-          <button onClick={this.handleRabbitAnimation} className={styles.rabbit}>
+          <button
+            onClick={this.handleRabbitAnimation}
+            className={styles.rabbit}
+          >
             Animate
           </button>
           <div
