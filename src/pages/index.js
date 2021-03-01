@@ -4,6 +4,7 @@ import styles from '../styles/home.module.scss'
 import {
   AmbientLight,
   AnimationMixer,
+  Clock,
   DirectionalLight,
   DoubleSide,
   Group,
@@ -33,9 +34,9 @@ class Home extends Component {
     this.raycaster = null
     this.rabbit = null
     this.state = {
-      animating: false,
       audioPlaying: false,
       flowerAnimating: false,
+      rabbitAnimating: false,
     }
   }
 
@@ -171,12 +172,13 @@ class Home extends Component {
       gltf.scene.userData.id = 'flower'
       const clone = gltf.scene.clone()
       const clone2 = gltf.scene.clone()
-      const clone3 = gltf.scene.clone()
+      const rabbitTrigger = gltf.scene.clone()
       gltf.scene.position.set(1, 0, 0)
       clone.position.set(2, 0, 2)
       clone2.position.set(2.5, 0, 1)
-      clone3.position.set(-2.5, 0, 1.5)
-      this.flowerbed.add(gltf.scene, clone, clone2, clone3)
+      rabbitTrigger.position.set(-2.5, 0, 1.5)
+      rabbitTrigger.userData.trigger = true
+      this.flowerbed.add(gltf.scene, clone, clone2, rabbitTrigger)
     })
     loader.load('/models/daffodil/daffodil.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
@@ -206,7 +208,7 @@ class Home extends Component {
     loader.load('/models/rabbit/rabbit.gltf', gltf => {
       this.rabbit = gltf.scene
       this.rabbit.rotation.y += Math.PI / 2
-      this.rabbit.position.set(-3.5, -0.1, 0.5)
+      this.rabbit.position.set(-3.5, 0, 0.5)
       this.scene.add(this.rabbit)
 
       this.millMixer = new AnimationMixer(gltf.scene)
@@ -226,7 +228,9 @@ class Home extends Component {
     }
 
     requestAnimationFrame(this.animate)
-    if (this.millMixer) this.millMixer.update(0.02)
+    if (this.millMixer) {
+      this.millMixer.update(0.02)
+    }
     this.renderer.render(this.scene, this.camera)
   }
 
@@ -255,12 +259,19 @@ class Home extends Component {
     if (intersects.length > 0 && !flowerAnimating) {
       let currentIntersection
 
-      if (intersects[0].object.parent.parent && intersects[0].object.parent.parent.userData.id) {
+      if (
+        intersects[0].object.parent.parent &&
+        intersects[0].object.parent.parent.userData.id
+      ) {
         currentIntersection = intersects[0].object.parent.parent
-      } else if (intersects[0].object.parent && intersects[0].object.parent.userData.id) {
+      } else if (
+        intersects[0].object.parent &&
+        intersects[0].object.parent.userData.id
+      ) {
         currentIntersection = intersects[0].object.parent
       }
-
+      if (currentIntersection && currentIntersection.userData.trigger)
+        this.handleRabbitAnimation()
       if (currentIntersection && currentIntersection.userData.id) {
         let scaleRef = { value: 0 }
         const tl = gsap.timeline()
@@ -302,17 +313,27 @@ class Home extends Component {
   }
 
   handleRabbitAnimation = () => {
-    if (this.state.animating) {
-      this.clips.forEach(clip => {
-        this.millMixer.clipAction(clip).paused = true
-      })
-      this.setState({ animating: false })
-    } else {
-      this.clips.forEach(clip => {
-        this.millMixer.clipAction(clip).paused = false
-      })
-      this.setState({ animating: true })
-    }
+    this.clips.forEach(clip => {
+      this.millMixer.clipAction(clip).paused = false
+    })
+    this.setState({ rabbitAnimating: true })
+    let scaleRef = { value: -3.5 } // same spot where it's loaded
+    const tl = gsap.timeline()
+    tl.to(scaleRef, {
+      value: 8,
+      duration: 5,
+      ease: 'sine.in',
+      onUpdate: () => {
+        this.rabbit.position.set(scaleRef.value, 0, 0.5)
+      },
+      onComplete: () => {
+        this.scene.remove(this.rabbit)
+        setTimeout(() => {
+          this.setState({ rabbitAnimating: false })
+          this.loadRabbit()
+        }, 1000)
+      },
+    })
   }
 
   render() {
