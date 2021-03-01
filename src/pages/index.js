@@ -304,13 +304,14 @@ class Home extends Component {
       if (currentIntersection && currentIntersection.userData.trigger)
         this.handleRabbitAnimation()
       if (currentIntersection && currentIntersection.userData.id) {
+        const rotationY = currentIntersection.rotation.y
         let scaleRef = { value: 0 }
         const tl = gsap.timeline()
         tl.to(scaleRef, {
           value: 0.2,
           duration: 0.2,
           onUpdate: () => {
-            currentIntersection.rotation.set(0, 0, scaleRef.value)
+            currentIntersection.rotation.set(0, rotationY, scaleRef.value)
           },
           onStart: () => this.setState({ flowerAnimating: true }),
         })
@@ -318,14 +319,14 @@ class Home extends Component {
             value: -0.2,
             duration: 0.2,
             onUpdate: () => {
-              currentIntersection.rotation.set(0, 0, scaleRef.value)
+              currentIntersection.rotation.set(0, rotationY, scaleRef.value)
             },
           })
           .to(scaleRef, {
             value: 0,
             duration: 0.2,
             onUpdate: () => {
-              currentIntersection.rotation.set(0, 0, scaleRef.value)
+              currentIntersection.rotation.set(0, rotationY, scaleRef.value)
             },
             onComplete: () => this.setState({ flowerAnimating: false }),
           })
