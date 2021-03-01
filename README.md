@@ -26,21 +26,15 @@ This app is deployed at: [3d-landscape-hackathon.vercel.app/](https://3d-landsca
 
 ## 3D Model Credits
 
-Models downloaded from [Sketchfab](https://sketchfab.com/), [CGTrader](https://www.cgtrader.com/) and [Free3D](https://free3d.com/).
-- Garden Table and Chairs by [Ryoce](https://sketchfab.com/Ryoce).
-- Wheelbarrow by [Evan](https://sketchfab.com/Evanz).
-- Red Tree by [BaptisteBerard](https://sketchfab.com/BaptisteBerard).
+Models downloaded from [Sketchfab](https://sketchfab.com/) and [Free3D](https://free3d.com/).
 - Rabbit by [FourthGreen](https://sketchfab.com/FourthGreen).
 - Grass by [F A L C O N](https://sketchfab.com/qewr1324).
-- Crocus, Daffodil, Snowdrop, Tulip Flowers by [printable_models](https://free3d.com/user/printable_models).
+- Individual Flowers by [printable_models](https://free3d.com/user/printable_models).
 
 ## Roadmap
 
-- Add interactivity
-  - Hints on what to click
-  - Click window to turn on a point light inside
-  - Click something to start/stop ambient sound
 - Add a modal
+  - Hints on what to click
   - info about me
   - model credits
   - technologies used

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { cloneElement, Component } from 'react'
 import Head from 'next/head'
 import styles from '../styles/home.module.scss'
 import {
@@ -70,8 +70,8 @@ class Home extends Component {
       1,
       1000
     )
-    this.camera.position.z = 4 // back up away from scene
-    this.camera.position.y = 2.5 // above the scene
+    this.camera.position.z = 2 // back up away from scene
+    this.camera.position.y = 4 // above the scene
     this.camera.lookAt(0, 0, 0)
 
     this.controls = new OrbitControls(this.camera, this.mount)
@@ -144,13 +144,13 @@ class Home extends Component {
       const clone2 = gltf.scene.clone()
       this.scene.add(gltf.scene, clone, clone2)
       gltf.scene.position.set(3.8, 0, -3.8)
-      clone.position.set(-2.8, 0, 1.2)
+      clone.position.set(-2.6, 0, 1.2)
       clone2.position.set(-1.5, 0, -3.7)
     })
     loader.load('/models/small_grass_chunk/small_grass_chunk.gltf', gltf => {
       const clone = gltf.scene
-      const clone2 = gltf.scene
-      const clone3 = gltf.scene
+      const clone2 = gltf.scene.clone()
+      const clone3 = gltf.scene.clone()
       this.scene.add(gltf.scene, clone, clone2, clone3)
       gltf.scene.position.set(-4, 0, 0)
       clone.position.set(0, 0, -3.7)
@@ -170,36 +170,67 @@ class Home extends Component {
     )
     loader.load('/models/crocus/crocus.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
+      const rabbitTrigger = gltf.scene.clone()
       const clone = gltf.scene.clone()
       const clone2 = gltf.scene.clone()
-      const rabbitTrigger = gltf.scene.clone()
-      gltf.scene.position.set(1, 0, 0)
+      const clone3 = gltf.scene.clone()
+      const clone4 = gltf.scene.clone()
+      const clone5 = gltf.scene.clone()
+      gltf.scene.position.set(1, -0.1, 0.2)
       clone.position.set(2, 0, 2)
-      clone2.position.set(2.5, 0, 1)
-      rabbitTrigger.position.set(-2.5, 0, 1.5)
+      clone2.position.set(2.8, 0, 1.1)
+      clone3.position.set(2.4, -0.1, 1.4)
+      clone4.position.set(3, -0.1, 1.2)
+      rabbitTrigger.position.set(-2.45, 0, 0.5)
       rabbitTrigger.userData.trigger = true
-      this.flowerbed.add(gltf.scene, clone, clone2, rabbitTrigger)
+      this.flowerbed.add(
+        gltf.scene,
+        clone,
+        clone2,
+        clone3,
+        clone4,
+        clone5,
+        rabbitTrigger
+      )
     })
     loader.load('/models/daffodil/daffodil.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
+      const clone = gltf.scene.clone()
       gltf.scene.position.set(1, 0, 1)
-      this.flowerbed.add(gltf.scene)
+      gltf.scene.rotation.set(0, 0.6, 0)
+      clone.position.set(-2.3, -0.1, -0.5)
+      clone.rotation.set(0,-0.5, 0)
+      this.flowerbed.add(gltf.scene, clone)
     })
     loader.load('/models/tulip/tulip.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
+      const clone = gltf.scene.clone()
       gltf.scene.position.set(0, 0, -1)
-      this.flowerbed.add(gltf.scene)
+      clone.position.set(4.2, -0.1, -1.9)
+      clone.rotation.set(0, 1, 0)
+      this.flowerbed.add(gltf.scene, clone)
     })
     loader.load('/models/snowdrop/snowdrop.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
       const clone = gltf.scene.clone()
-      gltf.scene.position.set(0, 0, 1)
-      this.flowerbed.add(gltf.scene, clone)
+      const clone2 = gltf.scene.clone()
+      const clone3 = gltf.scene.clone()
+      gltf.scene.position.set(2.7, 0, -2)
+      clone.position.set(3.6, 0, -1.7)
+      clone.rotation.set(0, 1, 0)
+      clone2.position.set(-3, 0, -3)
+      clone2.rotation.set(0, -1, 0)
+      clone3.position.set(-3.2, 0, 1.5)
+      clone3.rotation.set(0, 2, 0)
+      this.flowerbed.add(gltf.scene, clone, clone2, clone3)
     })
     loader.load('/models/anemone/anemone.gltf', gltf => {
       gltf.scene.userData.id = 'flower'
+      const clone = gltf.scene.clone()
+      clone.position.set(-1.5, 0, -0.7)
+      clone.rotation.set(0, 1.8, 0)
       gltf.scene.position.set(2, 0, 0)
-      this.flowerbed.add(gltf.scene)
+      this.flowerbed.add(gltf.scene, clone)
     })
   }
 
@@ -341,7 +372,7 @@ class Home extends Component {
     return (
       <>
         <Head>
-          <title>3D Flower Field</title>
+          <title>Spring Scene</title>
           <link rel='shortcut icon' type='image/x-icon' href=''></link>
         </Head>
         <main className={styles['canvas-cont']}>
