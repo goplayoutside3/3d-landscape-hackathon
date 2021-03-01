@@ -313,6 +313,7 @@ class Home extends Component {
   }
 
   handleRabbitAnimation = () => {
+    if (this.state.rabbitAnimating) return
     this.clips.forEach(clip => {
       this.millMixer.clipAction(clip).paused = false
     })
@@ -356,12 +357,6 @@ class Home extends Component {
               [styles.playing]: this.state.audioPlaying,
             })}
           />
-          <button
-            onClick={this.handleRabbitAnimation}
-            className={styles.rabbit}
-          >
-            Animate
-          </button>
           <div
             ref={ref => (this.mount = ref)}
             id='canvas'
