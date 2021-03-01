@@ -50,3 +50,18 @@
     }
   }
 }
+
+.credits-button {
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  transition: opacity 200ms linear;
+
+  &.creditsOpen {
+    opacity: 0;
+  }
+}

@@ -1,10 +1,9 @@
-import React, { cloneElement, Component } from 'react'
+import React, { Component } from 'react'
 import Head from 'next/head'
 import styles from '../styles/home.module.scss'
 import {
   AmbientLight,
   AnimationMixer,
-  Clock,
   DirectionalLight,
   DoubleSide,
   Group,
@@ -21,6 +20,7 @@ import { GLTFLoader } from '../utils/GLTFLoader'
 import { OrbitControls } from '../utils/OrbitControls'
 import classes from 'classnames'
 import gsap from 'gsap'
+import Credits from '../components/Credits'
 
 class Home extends Component {
   constructor(props) {
@@ -35,12 +35,16 @@ class Home extends Component {
     this.rabbit = null
     this.state = {
       audioPlaying: false,
+      creditsOpen: true,
       flowerAnimating: false,
+      modelsLoaded: false,
       rabbitAnimating: false,
     }
   }
 
-  componentDidMount() {
+  loadAllModels = () => {
+    if (!this.state.modelsLoaded) this.setState({ modelsLoaded: true })
+    if (this.state.creditsOpen) this.setState({ creditsOpen: false })
     this.sceneSetup()
     this.loadPlants()
     this.loadRabbit()
@@ -50,9 +54,14 @@ class Home extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowResize)
-    window.cancelAnimationFrame(this.requestID)
-    this.controls.dispose()
-    this.renderer.domElement.removeEventListener('mousemove', this.handleHover)
+    if (this.controls) this.controls.dispose()
+    if (this.renderer) {
+      this.renderer.dispose()
+      this.renderer.domElement.removeEventListener(
+        'mousemove',
+        this.handleHover
+      )
+    }
   }
 
   handleWindowResize = () => {
@@ -144,7 +153,7 @@ class Home extends Component {
       const clone2 = gltf.scene.clone()
       this.scene.add(gltf.scene, clone, clone2)
       gltf.scene.position.set(3.8, 0, -3.8)
-      clone.position.set(-2.6, 0, 1.2)
+      clone.position.set(-2.5, 0, 1.2)
       clone2.position.set(-1.5, 0, -3.7)
     })
     loader.load('/models/small_grass_chunk/small_grass_chunk.gltf', gltf => {
@@ -205,7 +214,7 @@ class Home extends Component {
       gltf.scene.position.set(1, 0, 1)
       gltf.scene.rotation.set(0, 0.6, 0)
       clone.position.set(-2.3, -0.1, -0.5)
-      clone.rotation.set(0,-0.5, 0)
+      clone.rotation.set(0, -0.5, 0)
       this.flowerbed.add(gltf.scene, clone)
     })
     loader.load('/models/tulip/tulip.gltf', gltf => {
@@ -385,7 +394,14 @@ class Home extends Component {
     })
   }
 
+  toggleCredits = () => {
+    if (!this.state.modelsLoaded) this.loadAllModels()
+    this.setState({ creditsOpen: !this.state.creditsOpen })
+  }
+
   render() {
+    const { creditsOpen, modelsLoaded} = this.state
+
     return (
       <>
         <Head>
@@ -404,6 +420,20 @@ class Home extends Component {
             className={classes(styles.audio, {
               [styles.playing]: this.state.audioPlaying,
             })}
+          />
+          <button
+            className={classes(styles['credits-button'], {
+              [styles.creditsOpen]: creditsOpen
+            })}
+            onClick={this.toggleCredits}
+          >
+            Show Credits
+          </button>
+          <Credits
+            creditsOpen={creditsOpen}
+            loadAllModels={this.loadAllModels}
+            modelsLoaded={modelsLoaded}
+            toggleCredits={this.toggleCredits}
           />
           <div
             ref={ref => (this.mount = ref)}
