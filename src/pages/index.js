@@ -92,10 +92,16 @@ class Home extends Component {
     this.scene.add(ambientLight)
 
     const lightOne = new DirectionalLight(0xffffff, 1)
-    lightOne.position.set(0, 1, 0.5)
+    lightOne.position.set(0.8, 1, 0.5)
     lightOne.target.position.set(0, 0, 0)
     this.scene.add(lightOne)
     this.scene.add(lightOne.target)
+
+    const lightTwo = new DirectionalLight(0xffffff, 0.8)
+    lightTwo.position.set(0.5, 1, 0.8)
+    lightTwo.target.position.set(0, 0, 0)
+    this.scene.add(lightTwo)
+    this.scene.add(lightTwo.target)
 
     // Create a Plane for the ground
     const geometry = new PlaneBufferGeometry(10.5, 7, 1)
@@ -200,7 +206,7 @@ class Home extends Component {
     loader.load('/models/rabbit/rabbit.gltf', gltf => {
       this.rabbit = gltf.scene
       this.rabbit.rotation.y += Math.PI / 2
-      this.rabbit.position.set(-3.5, 0, 0.5)
+      this.rabbit.position.set(-3.5, -0.1, 0.5)
       this.scene.add(this.rabbit)
 
       this.millMixer = new AnimationMixer(gltf.scene)
