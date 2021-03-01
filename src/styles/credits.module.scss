@@ -9,12 +9,9 @@
   background: #f8f4ec;
   border: 4px solid #006680;
   padding: 20px;
-  opacity: 0;
-  transition: opacity 200ms linear;
 
   &.open {
     display: block;
-    opacity: 1;
   }
 }
 

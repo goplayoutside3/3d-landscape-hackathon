@@ -13,4 +13,21 @@ body {
 	padding: 0;
 	font-size: 16px;
 	line-height: 1;
+	font-family: $font-light;
+	line-height: 1.5;
+}
+
+h1 {
+	font-size: 2rem;
+	font-family: $font-bold;
+	margin-bottom: $copy-margin-bottom;
+	line-height: 1;
+}
+
+p {
+	margin-bottom: $copy-margin-bottom;
+}
+
+button {
+	font-family: $font-bold;
 }
