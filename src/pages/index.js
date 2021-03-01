@@ -220,7 +220,7 @@ class Home extends Component {
     }
 
     requestAnimationFrame(this.animate)
-    if (this.millMixer) this.millMixer.update(0.01)
+    if (this.millMixer) this.millMixer.update(0.02)
     this.renderer.render(this.scene, this.camera)
   }
 
@@ -247,7 +247,14 @@ class Home extends Component {
       true
     )
     if (intersects.length > 0 && !flowerAnimating) {
-      const currentIntersection = intersects[0].object.parent.parent
+      let currentIntersection
+
+      if (intersects[0].object.parent.parent && intersects[0].object.parent.parent.userData.id) {
+        currentIntersection = intersects[0].object.parent.parent
+      } else if (intersects[0].object.parent && intersects[0].object.parent.userData.id) {
+        currentIntersection = intersects[0].object.parent
+      }
+
       if (currentIntersection && currentIntersection.userData.id) {
         let scaleRef = { value: 0 }
         const tl = gsap.timeline()
