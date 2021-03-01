@@ -1,4 +1,4 @@
-This is a web app built for [Mintbean](https://mintbean.io/)'s weekly hackathon. It's a [Next.js](https://nextjs.org/) project using [three.js](https://threejs.org/).
+Take a virtual spring break to a field of wildflowers. This is a web app built for [Mintbean](https://mintbean.io/)'s weekly hackathon. It's a [Next.js](https://nextjs.org/) project using [three.js](https://threejs.org/).
 
 ## Running Locally
 

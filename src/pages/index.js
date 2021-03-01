@@ -18,6 +18,7 @@ import {
 import { GLTFLoader } from '../utils/GLTFLoader'
 import { OrbitControls } from '../utils/OrbitControls'
 import classes from 'classnames'
+import gsap from 'gsap'
 
 class Home extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class Home extends Component {
     this.state = {
       animating: false,
       audioPlaying: false,
+      currentFlower: null
     }
   }
 
@@ -48,11 +50,10 @@ class Home extends Component {
     window.removeEventListener('resize', this.handleWindowResize)
     window.cancelAnimationFrame(this.requestID)
     this.controls.dispose()
-
-    // this.renderer.domElement.removeEventListener(
-    //   'mousemove',
-    //   this.handleMarkerHover
-    // )
+    this.renderer.domElement.removeEventListener(
+      'mousemove',
+      this.handleHover
+    )
   }
 
   handleWindowResize = () => {
@@ -113,12 +114,11 @@ class Home extends Component {
     // Click Event
     this.raycaster = new Raycaster()
     this.mouse = new Vector2()
-
-    // this.renderer.domElement.addEventListener(
-    //   'mousemove',
-    //   this.handleHover,
-    //   false
-    // )
+    this.renderer.domElement.addEventListener(
+      'mousemove',
+      this.handleHover,
+      false
+    )
   }
 
   loadPlants = () => {
@@ -162,6 +162,7 @@ class Home extends Component {
       }
     )
     loader.load('/models/crocus/crocus.gltf', gltf => {
+      gltf.scene.userData.id = 'flower'
       const clone = gltf.scene.clone()
       const clone2 = gltf.scene.clone()
       const clone3 = gltf.scene.clone()
@@ -172,19 +173,23 @@ class Home extends Component {
       clone3.position.set(-2.5, 0, 1.5)
     })
     loader.load('/models/daffodil/daffodil.gltf', gltf => {
+      gltf.scene.userData.id = 'flower'
       this.scene.add(gltf.scene)
       gltf.scene.position.set(1, 0, 1)
     })
     loader.load('/models/tulip/tulip.gltf', gltf => {
+      gltf.scene.userData.id = 'flower'
       this.scene.add(gltf.scene)
       gltf.scene.position.set(0, 0, -1)
     })
     loader.load('/models/snowdrop/snowdrop.gltf', gltf => {
+      gltf.scene.userData.id = 'flower'
       const clone = gltf.scene.clone()
       this.scene.add(gltf.scene, clone)
       gltf.scene.position.set(0, 0, 1)
     })
     loader.load('/models/anemone/anemone.gltf', gltf => {
+      gltf.scene.userData.id = 'flower'
       this.scene.add(gltf.scene)
       gltf.scene.position.set(2, 0, 0)
     })
@@ -232,16 +237,41 @@ class Home extends Component {
 
   handleHover = e => {
     e.preventDefault()
+    const { currentFlower } = this.state
     this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1
     this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
     this.raycaster.setFromCamera(this.mouse, this.camera)
-    const intersects = this.raycaster.intersectObjects([], true)
+    const intersects = this.raycaster.intersectObjects(this.scene.children, true)
     if (intersects.length > 0) {
-      console.log('hovering')
-      // document.body.classList.add('marker-hover')
+      const currentIntersection = intersects[0].object.parent.parent
+      if (currentIntersection && currentIntersection.userData.id) {
+        if (currentFlower === null || currentFlower && currentFlower.userData.id !== currentIntersection.userData.id) {
+          this.setState({ currentFlower: currentIntersection })
+          let scaleRef = { value: 1 }
+          // change this to a swaying animation that auto completes
+          gsap.to(scaleRef, {
+            value: 1.5,
+            duration: 0.2,
+            ease: 'linear',
+            onUpdate: () => {
+              currentIntersection.scale.set(scaleRef.value, scaleRef.value, scaleRef.value)
+            }
+          })
+        }
+      }
     } else {
-      console.log('not hovering')
-      // document.body.classList.remove('marker-hover')
+      if (currentFlower) {
+        let scaleRef = { value: 1.5 }
+        gsap.to(scaleRef, {
+          value: 1,
+          duration: 0.2,
+          ease: 'linear',
+          onUpdate: () => {
+            currentFlower.scale.set(scaleRef.value, scaleRef.value, scaleRef.value)
+          }
+        })
+      }
+      this.setState({ currentFlower: null })
     }
   }
 
@@ -262,7 +292,6 @@ class Home extends Component {
       })
       this.setState({ animating: false })
     } else {
-      console.log('animate')
       this.clips.forEach(clip => {
         this.millMixer.clipAction(clip).paused = false
       })
