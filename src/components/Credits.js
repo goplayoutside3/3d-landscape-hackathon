@@ -20,7 +20,7 @@ const Credits = ({
       <h1>Spring Scene</h1>
       <div>
         <p>
-          Take a virtual Spring Break and enter this 3D web app built for{' '}
+          Take a virtual spring break and enter this 3D web app built for{' '}
           <a href='https://mintbean.io/' target='_blank'>
             Mintbean
           </a>
@@ -28,7 +28,7 @@ const Credits = ({
           <a href='https://threejs.org/' target='_blank'>
             Three.js
           </a>{' '}
-          and free models found online. This app is also built using{' '}
+          and free models found online. This app is built using{' '}
           <a href='https://nextjs.org/' target='_blank'>
             Next.js
           </a>{' '}
@@ -42,7 +42,7 @@ const Credits = ({
           <div className={styles.col}>
             <h2>How to Use the App</h2>
             <ul>
-              <li className={styles['only-desktop']}>Play or pause sound in upper left corner</li>
+              <li className={styles['only-desktop-list-item']}>Play or pause sound in upper left corner</li>
               <li>Scroll to zoom and drag to rotate the scene</li>
               <li>Click the flowers to animate them</li>
               <li>Find the flower that scares the bunny away!</li>

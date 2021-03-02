@@ -10,6 +10,14 @@
   }
 }
 
+.only-desktop-list-item {
+  display: none;
+
+  @include media-breakpoint-up(md) {
+    display: list-item;
+  }
+}
+
 .modal {
   display: none;
   flex-direction: column;
