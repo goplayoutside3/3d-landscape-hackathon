@@ -474,6 +474,7 @@ class Home extends Component {
         <Head>
           <title>Spring Scene</title>
           <link rel='shortcut icon' type='image/x-icon' href=''></link>
+          <meta property="og:image" content={'/share.jpg'} />
         </Head>
         <main
           className={classes(styles['canvas-cont'], {
