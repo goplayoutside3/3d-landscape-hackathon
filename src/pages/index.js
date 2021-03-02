@@ -65,6 +65,10 @@ class Home extends Component {
         'click',
         this.handleClick
       )
+      this.renderer.domElement.removeEventListener(
+        'touchstart',
+        this.handleClick
+      )
     }
   }
 
@@ -148,6 +152,11 @@ class Home extends Component {
     )
     this.renderer.domElement.addEventListener(
       'click',
+      this.handleClick,
+      false
+    )
+    this.renderer.domElement.addEventListener(
+      'touchstart',
       this.handleClick,
       false
     )
@@ -321,8 +330,16 @@ class Home extends Component {
     e.preventDefault()
     const { flowerAnimating } = this.state
 
-    this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1
-    this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+    if (e.type === 'click') {
+      this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+      this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+    }
+
+    if (e.type === 'touchstart') {
+      this.mouse.x = (e.targetTouches[0].clientX / window.innerWidth) * 2 - 1
+      this.mouse.y = -(e.targetTouches[0].clientY / window.innerHeight) * 2 + 1
+    }
+
     this.raycaster.setFromCamera(this.mouse, this.camera)
     const intersects = this.raycaster.intersectObjects(
       this.flowerbed.children,
