@@ -38,12 +38,12 @@ const Credits = ({
           </a>
           .
         </p>
-        <div className={styles.columns}>
+        <div className={styles.row}>
           <div className={styles.col}>
             <h2>How to Use the App</h2>
             <ul>
               <li>Play or pause sound in upper left corner</li>
-              <li>Load 3D scene with button below</li>
+              <li>Scroll to zoom and drag to rotate the scene</li>
               <li>Hover over flowers to animate them</li>
               <li>Find the flower that scares the bunny away!</li>
             </ul>
@@ -72,7 +72,50 @@ const Credits = ({
             </ul>
           </div>
         </div>
-        <h2>Credits</h2>
+        <div className={styles.row}>
+          <div className={styles.col}>
+            <h2>Credits</h2>
+            <ul>
+              <li>
+                Rabbit by{' '}
+                <a href='https://sketchfab.com/FourthGreen' target='_blank'>
+                  FourthGreen
+                </a>{' '}
+                on Sketchfab
+              </li>
+              <li>
+                Grass by{' '}
+                <a href='https://sketchfab.com/qewr1324' target='_blank'>
+                  F A L C O N
+                </a>{' '}
+                on Sketchfab
+              </li>
+              <li>
+                Flowers by{' '}
+                <a
+                  href='https://free3d.com/user/printable_models'
+                  target='_blank'
+                >
+                  printable_models
+                </a>{' '}
+                on Free3d
+              </li>
+            </ul>
+          </div>
+          <div className={classes(styles.col, styles.thumbnails)}>
+            <div>
+              <img className={styles.thumbnail} src='/anemone.jpg' alt='' />
+              <img className={styles.thumbnail} src='/crocus.jpg' alt='' />
+              <img className={styles.thumbnail} src='/daffodil.jpg' alt='' />
+            </div>
+            <div>
+              <img className={styles.thumbnail} src='/snowdrop.jpg' alt='' />
+              <img className={styles.thumbnail} src='/tulip.jpg' alt='' />
+              <img className={styles.thumbnail} src='/rabbit.jpg' alt='' />
+              <img className={styles.thumbnail} src='/grass.jpg' alt='' />
+            </div>
+          </div>
+        </div>
       </div>
       <button
         className={classes(styles.load, {

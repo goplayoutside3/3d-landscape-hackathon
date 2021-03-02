@@ -71,6 +71,7 @@ class Home extends Component {
     this.camera.updateProjectionMatrix()
   }
 
+  // TO DO: backup camera if loaded on mobile
   sceneSetup = () => {
     this.scene = new Scene()
     this.camera = new PerspectiveCamera(
