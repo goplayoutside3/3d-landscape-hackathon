@@ -42,9 +42,9 @@ const Credits = ({
           <div className={styles.col}>
             <h2>How to Use the App</h2>
             <ul>
-              <li>Play or pause sound in upper left corner</li>
+              <li className={styles['only-desktop']}>Play or pause sound in upper left corner</li>
               <li>Scroll to zoom and drag to rotate the scene</li>
-              <li>Hover over flowers to animate them</li>
+              <li>Click the flowers to animate them</li>
               <li>Find the flower that scares the bunny away!</li>
             </ul>
           </div>
@@ -107,12 +107,12 @@ const Credits = ({
               <img className={styles.thumbnail} src='/anemone.jpg' alt='' />
               <img className={styles.thumbnail} src='/crocus.jpg' alt='' />
               <img className={styles.thumbnail} src='/daffodil.jpg' alt='' />
-            </div>
-            <div>
               <img className={styles.thumbnail} src='/snowdrop.jpg' alt='' />
               <img className={styles.thumbnail} src='/tulip.jpg' alt='' />
-              <img className={styles.thumbnail} src='/rabbit.jpg' alt='' />
+            </div>
+            <div>
               <img className={styles.thumbnail} src='/grass.jpg' alt='' />
+              <img className={classes(styles.thumbnail, styles['rabbit-thumb'])} src='/rabbit.jpg' alt='' />
             </div>
           </div>
         </div>

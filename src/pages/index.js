@@ -61,6 +61,10 @@ class Home extends Component {
         'mousemove',
         this.handleHover
       )
+      this.renderer.domElement.removeEventListener(
+        'click',
+        this.handleClick
+      )
     }
   }
 
@@ -71,8 +75,9 @@ class Home extends Component {
     this.camera.updateProjectionMatrix()
   }
 
-  // TO DO: backup camera if loaded on mobile
   sceneSetup = () => {
+    const mobile = window.innerWidth < 768
+
     this.scene = new Scene()
     this.camera = new PerspectiveCamera(
       75,
@@ -80,8 +85,13 @@ class Home extends Component {
       1,
       1000
     )
-    this.camera.position.z = 3.5 // back up away from scene
-    this.camera.position.y = 2.5 // above the scene
+    if (mobile) {
+      this.camera.position.z = 10
+      this.camera.position.y = 3
+    } else {
+      this.camera.position.z = 3.5
+      this.camera.position.y = 2.5
+    }
     this.camera.lookAt(0, 0, 0)
 
     this.controls = new OrbitControls(this.camera, this.mount)
@@ -134,6 +144,11 @@ class Home extends Component {
     this.renderer.domElement.addEventListener(
       'mousemove',
       this.handleHover,
+      false
+    )
+    this.renderer.domElement.addEventListener(
+      'click',
+      this.handleClick,
       false
     )
   }
@@ -302,7 +317,7 @@ class Home extends Component {
     return needResize
   }
 
-  handleHover = e => {
+  handleClick = e => {
     e.preventDefault()
     const { flowerAnimating } = this.state
 
@@ -360,6 +375,40 @@ class Home extends Component {
     }
   }
 
+  handleHover = (e) => {
+    e.preventDefault()
+
+    this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+    this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+    this.raycaster.setFromCamera(this.mouse, this.camera)
+
+    const intersects = this.raycaster.intersectObjects(
+      this.flowerbed.children,
+      true
+    )
+
+    if (intersects.length > 0) {
+      let currentIntersection
+      if (
+        intersects[0].object.parent.parent &&
+        intersects[0].object.parent.parent.userData.id
+      ) {
+        currentIntersection = intersects[0].object.parent.parent
+      } else if (
+        intersects[0].object.parent &&
+        intersects[0].object.parent.userData.id
+      ) {
+        currentIntersection = intersects[0].object.parent
+      }
+
+      if (currentIntersection && currentIntersection.userData.id) {
+        document.body.classList.add('flower-hover')
+      }
+    } else {
+      document.body.classList.remove('flower-hover')
+    }
+  }
+
   handleAudio = () => {
     if (this.state.audioPlaying) {
       this.audio.pause()
@@ -401,7 +450,7 @@ class Home extends Component {
   }
 
   render() {
-    const { creditsOpen, modelsLoaded} = this.state
+    const { creditsOpen, modelsLoaded } = this.state
 
     return (
       <>
@@ -409,9 +458,11 @@ class Home extends Component {
           <title>Spring Scene</title>
           <link rel='shortcut icon' type='image/x-icon' href=''></link>
         </Head>
-        <main className={classes(styles['canvas-cont'], {
-          [styles.loaded]: modelsLoaded
-        })}>
+        <main
+          className={classes(styles['canvas-cont'], {
+            [styles.loaded]: modelsLoaded,
+          })}
+        >
           <audio
             ref={ref => (this.audio = ref)}
             loop
@@ -426,7 +477,7 @@ class Home extends Component {
           />
           <button
             className={classes(styles['credits-button'], {
-              [styles.creditsOpen]: creditsOpen
+              [styles.creditsOpen]: creditsOpen,
             })}
             onClick={this.toggleCredits}
           >
