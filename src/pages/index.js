@@ -408,7 +408,9 @@ class Home extends Component {
           <title>Spring Scene</title>
           <link rel='shortcut icon' type='image/x-icon' href=''></link>
         </Head>
-        <main className={styles['canvas-cont']}>
+        <main className={classes(styles['canvas-cont'], {
+          [styles.loaded]: modelsLoaded
+        })}>
           <audio
             ref={ref => (this.audio = ref)}
             loop
